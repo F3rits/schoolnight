@@ -1,6 +1,8 @@
 import { player, move } from "./player.js";
 import { walls } from "./walls.js";
 import { keys } from "./input.js";
+import { wallImages } from "./walls.js";
+
 
 export default class Game{
     constructor(ctx, canvas){
@@ -8,7 +10,9 @@ export default class Game{
         this.canvas = canvas;
         this.roomX = 0;
         this.roomY = 0;
+        
     }
+    music = document.getElementById("backgroundMusic");
 
 update() {
     //player
@@ -28,7 +32,7 @@ update() {
     }
     move(x,y, walls[this.roomY][this.roomX]);
 
- //walls
+ //room switching
     //right
 if (player.x > this.canvas.width - player.width && this.roomX < walls[this.roomY].length - 1){
     this.roomX++;
@@ -47,21 +51,33 @@ if (player.y <0 && this.roomY >0){
     //down
 if (player.y > this.canvas.height - player.height && this.roomY < walls.length-1){
     this.roomY++;
-    player.y = 0;
+    player.y = 1;
 }
 }
    
 draw(){
-    //player
-    this.ctx.fillStyle = "purple";
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-     this.ctx.fillRect(player.x, player.y, player.width, player.height);
+  
 
     //walls
     this.ctx.fillStyle = "pink";
     for(const wall of walls[this.roomY][this.roomX]){
         this.ctx.fillRect(wall.x, wall.y, wall.width, wall.height);
     }
+    const img = wallImages[this.roomY]?.[this.roomX];
+if (img && img.complete && img.naturalWidth > 0) {
+    this.ctx.drawImage(
+        img,
+        0,
+        0,
+        this.canvas.width,
+        this.canvas.height
+    );
+}
+
+      //player
+    this.ctx.fillStyle = "purple";
+     this.ctx.fillRect(player.x, player.y, player.width, player.height);
 }
 
 run = () => {
@@ -72,6 +88,8 @@ run = () => {
     
 
 start(){
-    requestAnimationFrame(this.run);
+requestAnimationFrame(this.run);
+    this.music.play();
+    this.music.loop = true;
     }
 }
