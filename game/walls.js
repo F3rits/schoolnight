@@ -3,7 +3,10 @@ export const walls = [
   [
     // Column 0
     [
-      { x: 380, y: 100, width: 40, height: 400 }
+      { x: 500, y: 0, width: 40, height: 1000 },
+      { x: 1500, y: 0, width: 40, height: 1000 },
+      { x:500, y:900, width:400, height:40},
+      { x:1100, y:900, width:400, height:40}
     ],
 
     // Column 1
@@ -34,3 +37,18 @@ export const walls = [
     ]
   ]
 ];
+
+const wallImages = [];
+
+export function loadWalls(row, column){
+    for (let y = 0; y < row; y++){
+        wallImages[y] = [];
+        for(let x = 0; x < column; x++) {
+            const img = new Image();
+            img.src = `./assets/walls${y}${x}.png`
+            wallImages[y][x] = img;
+        }
+    }
+}
+
+export {wallImages}
