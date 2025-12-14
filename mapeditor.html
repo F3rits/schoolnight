@@ -39,11 +39,15 @@
     let mapIndex = 0;
     let drawing = '#';
     let mouseDown = false;
+    let lastCell = null;
 
     const gridEl = document.getElementById('grid');
     const mapsEl = document.getElementById('maps');
 
-    window.onmouseup = () => mouseDown = false;
+    window.onmouseup = () => {
+      mouseDown = false;
+      lastCell = null;
+    };
 
     function renderMapButtons() {
       mapsEl.innerHTML = '';
@@ -67,11 +71,11 @@
 
           d.onmousedown = () => {
             mouseDown = true;
-            draw(y, x); // single click paints one tile
+            paint(y, x);
           };
 
           d.onmouseover = () => {
-            if (mouseDown) draw(y, x);
+            if (mouseDown) paint(y, x);
           };
 
           gridEl.appendChild(d);
@@ -79,7 +83,11 @@
       });
     }
 
-    function draw(y, x) {
+    function paint(y, x) {
+      const key = y + ',' + x;
+      if (lastCell === key) return; // prevent re-painting same cell
+      lastCell = key;
+
       maps[mapIndex][0][y][x] = drawing;
       render();
     }
