@@ -1,26 +1,27 @@
 import { collision } from "./collision.js";
 
 export const player = {
-    x: 1000,
-    y: 100,
-    width: 32,
-    height: 32,
-    speed: 5
+  x: 64,
+  y: 64,
+  width: 32,
+  height: 32,
+  speed: 4
 };
 
-export function move(x, y, walls){
-player.x+=x;
-for(const wall of walls){
-    if (collision(player, wall)){
-        player.x-=x;
-        break;
+export function move(dx, dy, walls) {
+  player.x += dx;
+  for (const wall of walls) {
+    if (collision(player, wall)) {
+      player.x -= dx;
+      break;
     }
-}
-player.y+=y;
-for(const wall of walls){
-    if (collision(player, wall)){
-        player.y-=y;
-        break;
+  }
+
+  player.y += dy;
+  for (const wall of walls) {
+    if (collision(player, wall)) {
+      player.y -= dy;
+      break;
     }
-}
+  }
 }
