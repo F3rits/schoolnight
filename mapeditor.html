@@ -65,7 +65,7 @@
         row.forEach((cell, x) => {
           const d = document.createElement('div');
           d.className = 'cell' + (cell === '#' ? ' wall' : '');
-          d.onmousedown = () => draw(y, x);
+          d.onmousedown = () => { mouseDown = true; draw(y, x); };
           d.onmouseover = () => mouseDown && draw(y, x);
           gridEl.appendChild(d);
         });
@@ -73,6 +73,7 @@
     }
 
     function draw(y, x) {
+      if (!mouseDown) return;
       maps[mapIndex][0][y][x] = drawing;
       render();
     }
