@@ -10,11 +10,64 @@ export function buildWalls(map) {
           x: x * tileSize,
           y: y * tileSize,
           width: tileSize,
-          height: tileSize
+          height: tileSize,
+          id: "wallImage"
+        });}
+        if (map[y][x] == "'") {
+        walls.push({
+          x: x * tileSize,
+          y: y * tileSize,
+          width: 0,
+          height: 0,
+          id: "whiteFloor"
+        });}
+         if (map[y][x] == "`") {
+        walls.push({
+          x: x * tileSize,
+          y: y * tileSize,
+          width: 0,
+          height: 0,
+          id: "blueFloor"
+        });
+      }
+      if (map[y][x] == "*") {
+        walls.push({
+          x: x * tileSize,
+          y: y * tileSize,
+          width: 0,
+          height: 0,
+          id: "corner1"
+        });
+      }
+      if (map[y][x] == "&") {
+        walls.push({
+          x: x * tileSize,
+          y: y * tileSize,
+          width: 0,
+          height: 0,
+          id: "corner2"
+        });
+      }
+      if (map[y][x] == "<") {
+        walls.push({
+          x: x * tileSize,
+          y: y * tileSize,
+          width: 0,
+          height: 0,
+          id: "wallCorner1"
+        });
+      }
+      if (map[y][x] == ">") {
+        walls.push({
+          x: x * tileSize,
+          y: y * tileSize,
+          width: 0,
+          height: 0,
+          id: "wallCorner2"
         });
       }
     }
   }
-
   return walls;
+  
 }
