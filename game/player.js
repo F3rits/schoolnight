@@ -11,7 +11,7 @@ export function move(dx, dy, walls) {
   player.x += dx;
   for (const wall of walls) {
     
-    if (collision(player, wall) && wall.id == "wall") {
+    if (collision(player, wall) && wall.width>0) {
       player.x -= dx;
       break;
     }
@@ -19,7 +19,7 @@ export function move(dx, dy, walls) {
 
   player.y += dy;
   for (const wall of walls) {
-    if (collision(player, wall) && wall.id == "wall") {
+    if (collision(player, wall) && wall.width>0) {
       player.y -= dy;
       break;
     }
