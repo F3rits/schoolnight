@@ -15,7 +15,15 @@ export default class Game {
     this.loadRoom();
   }
 
-  music = document.getElementById("backgroundMusic");
+  wallImage = document.getElementById("wallImage");
+  whiteFloor = document.getElementById("whiteFloor");
+  blueFloor = document.getElementById("blueFloor");
+  hallPass = document.getElementById("hallPass");
+  characterGreen = document.getElementById("characterGreen");
+  corner1 = document.getElementById("corner1");
+  corner2 = document.getElementById("corner2");
+  wallCorner1 = document.getElementById("wallCorner1");
+  wallCorner2 = document.getElementById("wallCorner2");
 
   loadRoom() {
     this.currentMap = maps[this.roomY][this.roomX];
@@ -48,9 +56,6 @@ if (dx !== 0 || dy !== 0) {
 }
 
 move(dx, dy, this.walls);
-
-
-
 
     if (player.x >= this.worldWidth - player.width && this.roomX < maps[this.roomY].length - 1) {
       this.roomX++;
@@ -89,14 +94,15 @@ move(dx, dy, this.walls);
 
   draw() {
     this.ctx.clearRect(0, 0, this.worldWidth, this.worldHeight);
-
-    this.ctx.fillStyle = "pink";
-    for (const wall of this.walls) {
-      this.ctx.fillRect(wall.x, wall.y, wall.width, wall.height);
-    }
-
-    this.ctx.fillStyle = "purple";
-    this.ctx.fillRect(player.x, player.y, player.width, player.height);
+     for (const wall of this.walls) {
+     const img = document.getElementById(wall.id);
+     if(wall.width > 0){
+        this.ctx.drawImage(img, wall.x, wall.y, wall.width, wall.height);
+     }else{
+        this.ctx.drawImage(img, wall.x, wall.y, 32, 32);
+     }
+   }
+    this.ctx.drawImage(characterGreen, player.x, player.y);
   }
 
   run = () => {
@@ -107,10 +113,5 @@ move(dx, dy, this.walls);
 
   start() {
     requestAnimationFrame(this.run);
-    this.music.play();
-    this.music.loop = true;
   }
 }
-
-
-
