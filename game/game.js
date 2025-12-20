@@ -81,7 +81,6 @@ export default class Game {
     this.walls = buildWalls(this.map);
     this.w = this.map[0].length * tileSize;
     this.h = this.map.length * tileSize;
-    this.updateMusic();
   }
 
   updateMusic() {
